@@ -569,7 +569,7 @@
     <footer>
         <div class="bottom-nav">
             <div>
-                <a href="index.html" style="text-decoration:none;color:inherit;">
+                <a href="TryMePackHomepage.html" style="text-decoration:none;color:inherit;">
                     🏠<br>首頁
                 </a>
             </div>
@@ -582,37 +582,49 @@
         </div>
     </footer>
     <script>
-        document.querySelector('.avatar-edit').onclick = function () {
-            document.getElementById('avatarUpload').click();
-        };
-        document.getElementById('avatarUpload').onchange = function (e) {
-            if (e.target.files && e.target.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function (evt) {
-                    document.getElementById('avatarImg').src = evt.target.result;
-                };
-                reader.readAsDataURL(e.target.files[0]);
-            }
-        };
-        window.toggleTrialDetails = function (card) {
-            const details = card.querySelector('.trial-details');
-            if (details.style.display === 'none') {
-                details.style.display = 'block';
-            } else {
-                details.style.display = 'none';
-            }
-        }
+  // 登入狀態檢查
+  const userName = localStorage.getItem("userName");
+  const userEmail = localStorage.getItem("userEmail");
 
-        document.querySelectorAll("button").forEach(btn => {
-            btn.addEventListener("mouseover", () => {
-                btn.style.background = "#e05555";
-            });
-            btn.addEventListener("mouseout", () => {
-                btn.style.background = "#f66";
-            });
-        });
+  if (!userName || !userEmail) {
+    alert("請先登入帳號");
+    window.location.href = "TryMePackLogin.html";
+  } else {
+    // ⭐️ 將登入資訊顯示在畫面上
+    document.querySelector(".name").textContent = userName;
+    document.querySelector(".email").textContent = userEmail;
+  }
 
-    </script>
+  document.querySelector('.avatar-edit').onclick = function () {
+    document.getElementById('avatarUpload').click();
+  };
+  document.getElementById('avatarUpload').onchange = function (e) {
+    if (e.target.files && e.target.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (evt) {
+        document.getElementById('avatarImg').src = evt.target.result;
+      };
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  };
+
+  window.toggleTrialDetails = function (card) {
+    const details = card.querySelector('.trial-details');
+    if (details.style.display === 'none') {
+      details.style.display = 'block';
+    } else {
+      details.style.display = 'none';
+    }
+  };
+
+  document.querySelectorAll("button").forEach(btn => {
+    btn.addEventListener("mouseover", () => {
+      btn.style.background = "#e05555";
+    });
+    btn.addEventListener("mouseout", () => {
+      btn.style.background = "#f66";
+    });
+  });
+</script>
 </body>
-
 </html>
