@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>首次體驗者表單 - TryMePack</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background: #fff;
+      color: #333;
+      padding: 20px;
+      max-width: 600px;
+      margin-inline: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #f66;
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      margin-top: 16px;
+      display: block;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    .checkbox-group,
+    .radio-group {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .checkbox-group label,
+    .radio-group label {
+      font-weight: normal;
+    }
+
+    .submit-btn {
+      background: #f66;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      margin-top: 30px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background: #e05555;
+    }
+
+    .consent {
+      margin-top: 20px;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>首次體驗者表單</h1>
+
+  <form onsubmit="submitForm(event)">
+    <label>暱稱（自動帶出）</label>
+    <input type="text" id="nickname" readonly />
+
+    <label>性別</label>
+    <div class="radio-group">
+      <label><input type="radio" name="gender" value="女"> 女</label>
+      <label><input type="radio" name="gender" value="男"> 男</label>
+      <label><input type="radio" name="gender" value="不公開"> 不公開</label>
+    </div>
+
+    <label>年齡區間</label>
+    <select name="age">
+      <option value="15-20">15–20</option>
+      <option value="21-25">21–25</option>
+      <option value="26-30">26–30</option>
+      <option value="31+">31+</option>
+    </select>
+
+    <label>膚質類型</label>
+    <div class="radio-group">
+      <label><input type="radio" name="skinType" value="乾性"> 乾性</label>
+      <label><input type="radio" name="skinType" value="油性"> 油性</label>
+      <label><input type="radio" name="skinType" value="混合"> 混合</label>
+      <label><input type="radio" name="skinType" value="敏感"> 敏感</label>
+      <label><input type="radio" name="skinType" value="不清楚"> 不清楚</label>
+    </div>
+
+    <label>頭皮狀況</label>
+    <div class="radio-group">
+      <label><input type="radio" name="scalp" value="油性"> 油性</label>
+      <label><input type="radio" name="scalp" value="乾癢"> 乾癢</label>
+      <label><input type="radio" name="scalp" value="脫屑"> 脫屑</label>
+      <label><input type="radio" name="scalp" value="一般"> 一般</label>
+    </div>
+
+    <label>關注的產品訴求（可複選）</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="needs" value="保濕"> 保濕</label>
+      <label><input type="checkbox" name="needs" value="控油"> 控油</label>
+      <label><input type="checkbox" name="needs" value="舒緩"> 舒緩</label>
+      <label><input type="checkbox" name="needs" value="天然"> 天然</label>
+      <label><input type="checkbox" name="needs" value="無香"> 無香</label>
+      <label><input type="checkbox" name="needs" value="抗屑"> 抗屑</label>
+    </div>
+
+    <label>香味偏好</label>
+    <div class="radio-group">
+      <label><input type="radio" name="scent" value="清新"> 清新</label>
+      <label><input type="radio" name="scent" value="花香"> 花香</label>
+      <label><input type="radio" name="scent" value="木質"> 木質</label>
+      <label><input type="radio" name="scent" value="無香"> 無香</label>
+      <label><input type="radio" name="scent" value="不拘小節"> 不拘小節</label>
+    </div>
+
+    <label>成分禁忌（可複選）</label>
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="avoid" value="酒精"> 酒精</label>
+      <label><input type="checkbox" name="avoid" value="香精"> 香精</label>
+      <label><input type="checkbox" name="avoid" value="SLS"> SLS</label>
+      <label><input type="checkbox" name="avoid" value="其他"> 其他</label>
+    </div>
+    <input type="text" placeholder="其他成分請填寫..." />
+
+    <label>是否接受動物實驗產品？</label>
+    <div class="radio-group">
+      <label><input type="radio" name="animal" value="接受"> 接受</label>
+      <label><input type="radio" name="animal" value="不接受"> 不接受</label>
+      <label><input type="radio" name="animal" value="不確定"> 不確定</label>
+    </div>
+
+    <label>是否願意參與產品回饋？</label>
+    <div class="radio-group">
+      <label><input type="radio" name="feedback" value="是"> 是</label>
+      <label><input type="radio" name="feedback" value="否"> 否</label>
+    </div>
+
+    <label>偏好試用瓶容量</label>
+    <div class="radio-group">
+      <label><input type="radio" name="bottle" value="15ml"> 15ml</label>
+      <label><input type="radio" name="bottle" value="30ml"> 30ml</label>
+      <label><input type="radio" name="bottle" value="50ml"> 50ml</label>
+    </div>
+
+    <label>是否願意回收空瓶換 TryMe Token？</label>
+    <div class="radio-group">
+      <label><input type="radio" name="recycle" value="願意"> 願意</label>
+      <label><input type="radio" name="recycle" value="不願意"> 不願意</label>
+    </div>
+
+    <label>想特別試用的產品或品牌</label>
+    <textarea rows="3" placeholder="可填寫品牌、功能、類型等"></textarea>
+
+    <label>其他想讓我們知道的事情</label>
+    <textarea rows="3" placeholder="任何額外建議或喜好"></textarea>
+
+    <div class="consent">
+      <label><input type="checkbox" required> 同意 TryMePack 使用此資料作為體驗推薦依據</label>
+    </div>
+
+    <button type="submit" class="submit-btn">送出表單</button>
+  </form>
+
+  <script>
+    // 自動載入暱稱
+    document.getElementById("nickname").value = localStorage.getItem("userName") || "（尚未登入）";
+
+    function submitForm(e) {
+      e.preventDefault();
+      alert("表單已提交！感謝您參與 TryMePack 🌱");
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>
