@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>登入 / 註冊 - TryMePack</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      background: #fff;
+      color: #333;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .brand {
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #f66;
+      margin-bottom: 20px;
+    }
+
+    .tab-toggle {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+    }
+
+    .tab-toggle button {
+      flex: 1;
+      padding: 10px;
+      background: #f0f0f0;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .tab-toggle button.active {
+      background: #f66;
+      color: white;
+    }
+
+    form {
+      display: none;
+      flex-direction: column;
+    }
+
+    form.active {
+      display: flex;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 16px;
+    }
+
+    .submit-btn {
+      background: #f66;
+      color: white;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background: #e05555;
+    }
+
+    .link {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .link a {
+      color: #f66;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="brand">TryMePack</div>
+
+    <div class="tab-toggle">
+      <button class="active" onclick="toggleForm('login')">登入</button>
+      <button onclick="toggleForm('register')">註冊</button>
+    </div>
+
+    <!-- 登入表單 -->
+    <form id="loginForm" class="active" onsubmit="handleLogin(event)">
+      <input type="email" id="loginEmail" placeholder="電子郵件" required />
+      <input type="password" id="loginPassword" placeholder="密碼" required />
+      <button type="submit" class="submit-btn">登入</button>
+      <div class="link"><a href="#">忘記密碼？</a></div>
+    </form>
+
+    <!-- 註冊表單 -->
+    <form id="registerForm">
+      <input type="text" placeholder="暱稱" required />
+      <input type="email" placeholder="電子郵件" required />
+      <input type="password" placeholder="密碼" required />
+      <input type="password" placeholder="確認密碼" required />
+      <button type="submit" class="submit-btn">註冊</button>
+    </form>
+  </div>
+
+  <script>
+    function toggleForm(mode) {
+      const loginForm = document.getElementById('loginForm');
+      const registerForm = document.getElementById('registerForm');
+      const buttons = document.querySelectorAll('.tab-toggle button');
+
+      if (mode === 'login') {
+        loginForm.classList.add('active');
+        registerForm.classList.remove('active');
+        buttons[0].classList.add('active');
+        buttons[1].classList.remove('active');
+      } else {
+        loginForm.classList.remove('active');
+        registerForm.classList.add('active');
+        buttons[0].classList.remove('active');
+        buttons[1].classList.add('active');
+      }
+    }
+
+    function handleLogin(event) {
+  event.preventDefault();
+
+  // 取使用者輸入
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+
+  // 這裡可加入帳密驗證（目前先略過，直接記錄）
+  const fakeName = email.split('@')[0]; // 用 email 當暱稱簡化
+
+  // 儲存登入資訊到 localStorage（模擬登入）
+  localStorage.setItem("userName", fakeName);
+  localStorage.setItem("userEmail", email);
+
+  // 導向首頁或個人頁
+  window.location.href = "index.html";
+}
+
+  </script>
+</body>
+</html>
