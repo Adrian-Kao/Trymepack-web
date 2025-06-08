@@ -108,11 +108,10 @@
     </form>
 
     <!-- 註冊表單 -->
-    <form id="registerForm">
-      <input type="text" placeholder="暱稱" required />
-      <input type="email" placeholder="電子郵件" required />
-      <input type="password" placeholder="密碼" required />
-      <input type="password" placeholder="確認密碼" required />
+    <form id="registerForm" onsubmit="handleRegister(event)">
+      <input type="text" id="registerNickname" placeholder="暱稱" required />
+      <input type="email" id="registerEmail" placeholder="電子郵件" required />
+      <input type="password" id="registerPassword" placeholder="密碼" required />
       <button type="submit" class="submit-btn">註冊</button>
     </form>
   </div>
@@ -136,24 +135,55 @@
       }
     }
 
+    function handleRegister(event) {
+      event.preventDefault();
+
+      const nickname = document.getElementById("registerNickname").value;
+      const email = document.getElementById("registerEmail").value;
+      const password = document.getElementById("registerPassword").value;
+
+      if (localStorage.getItem(email)) {
+        alert("此 email 已註冊過，請直接登入");
+        return;
+      }
+
+      // 儲存帳號資料（用 email 當 key）
+      const userData = {
+        nickname: nickname,
+        password: password
+      };
+      localStorage.setItem(email, JSON.stringify(userData));
+
+      // 登入狀態
+      localStorage.setItem("userEmail", email);
+      localStorage.setItem("userName", nickname);
+
+      window.location.href = "TyrMePackAccount.html";
+    }
+
     function handleLogin(event) {
-  event.preventDefault();
+      event.preventDefault();
 
-  // 取使用者輸入
-  const email = document.getElementById('loginEmail').value;
-  const password = document.getElementById('loginPassword').value;
+      const email = document.getElementById("loginEmail").value;
+      const password = document.getElementById("loginPassword").value;
 
-  // 這裡可加入帳密驗證（目前先略過，直接記錄）
-  const fakeName = email.split('@')[0]; // 用 email 當暱稱簡化
+      const stored = localStorage.getItem(email);
+      if (!stored) {
+        alert("查無帳號，請先註冊");
+        return;
+      }
 
-  // 儲存登入資訊到 localStorage（模擬登入）
-  localStorage.setItem("userName", fakeName);
-  localStorage.setItem("userEmail", email);
+      const userData = JSON.parse(stored);
+      if (userData.password !== password) {
+        alert("密碼錯誤");
+        return;
+      }
 
-  // 導向首頁或個人頁
-  window.location.href = "TryMePackHomepage.html";
-}
+      localStorage.setItem("userEmail", email);
+      localStorage.setItem("userName", userData.nickname);
 
+      window.location.href = "TyrMePackAccount.html";
+    }
   </script>
 </body>
 </html>
