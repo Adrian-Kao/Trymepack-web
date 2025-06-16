@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>產品試用回饋表單</title>
+  <style>
+    body {
+      font-family: "Noto Sans TC", sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 2rem;
+      color: #333;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #f66;
+    }
+    form {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+      font-weight: bold;
+    }
+    input[type=range], select, textarea {
+      width: 100%;
+      margin-top: 0.3rem;
+      padding: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+    input[type=checkbox] {
+      margin-right: 0.5rem;
+    }
+    textarea {
+      resize: vertical;
+    }
+    .product-info {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .product-info img {
+      width: 200px;
+      height: auto;
+      margin-top: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    button[type=submit] {
+      background-color: #f66;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      margin-top: 1.5rem;
+      display: block;
+      width: 100%;
+    }
+    button[type=submit]:hover {
+      background-color: #e05555;
+    }
+  </style>
+</head>
+<body>
+  <h1>產品試用回饋表單</h1>
+
+  <section class="product-info">
+    <h2>試用產品資訊</h2>
+    <p>產品名稱：茶樹控油潔面乳</p>
+    <img src="洗面乳/face1.png" alt="商品圖片">
+  </section>
+
+  <form id="feedbackForm">
+    <h2>體驗評價</h2>
+
+    <label>整體滿意度（1～5 星）：
+    <select name="overall_rating" id="overall_rating_select">
+      <option value="1">★☆☆☆☆</option>
+      <option value="2">★★☆☆☆</option>
+      <option value="3">★★★☆☆</option>
+      <option value="4">★★★★☆</option>
+      <option value="5">★★★★★</option>
+    </select>
+  </label>
+
+    <label>清潔力滿意度（1～5）：
+      <input type="range" name="clean_score" min="1" max="5">
+    </label>
+
+    <label>保濕／滋潤感（1～5）：
+      <input type="range" name="moisture_score" min="1" max="5">
+    </label>
+
+    <label>香味喜好（1～5）：
+      <input type="range" name="scent_score" min="1" max="5">
+    </label>
+
+    <label>氣味濃淡滿意度（1～5）：
+      <input type="range" name="scent_strength" min="1" max="5">
+    </label>
+
+    <label>起泡效果（1～5）：
+      <input type="range" name="foam_score" min="1" max="5">
+    </label>
+
+    <label>使用後的清爽感（1～5）：
+      <input type="range" name="refresh_score" min="1" max="5">
+    </label>
+
+    <label>包裝外觀設計（1～5）：
+      <input type="range" name="package_score" min="1" max="5">
+    </label>
+
+    <label>開放式意見回饋：
+      <textarea name="open_feedback" rows="4" placeholder="歡迎留下你最真實的想法..." id="open_feedback_input"></textarea>
+    </label>
+
+    <label>
+      <input type="checkbox" name="public_consent" > 我同意將這則回饋公開於產品評論區
+    </label>
+
+    <button type="submit">送出回饋</button>
+  </form>
+
+  <script>
+  document.getElementById('feedbackForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const rating = document.getElementById('overall_rating_select').value;
+    const feedback = document.getElementById('open_feedback_input').value;
+    
+    localStorage.setItem('feedbackFinished', 'true');
+    localStorage.setItem('feedbackRating', rating);
+    localStorage.setItem('feedbackComment', feedback);
+
+    window.location.href = 'TyrMePackAccount.html';
+  });
+</script>
+</body>
+</html>

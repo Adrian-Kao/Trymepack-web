@@ -257,6 +257,10 @@
             cursor: pointer;
         }
 
+        .feedback-container {
+            display: none;
+        }
+
         /* 收藏清單 */
         .wishlist-controls {
             display: flex;
@@ -437,13 +441,13 @@
                 <button>
                     ✍ 首次註冊請填表單
                 </button>
-             </a>
+            </a>
         </div>
 
         <!-- 我的試用紀錄 -->
         <div class="section-title">我的試用紀錄</div>
         <div class="card-list">
-            <div class="trial-card" onclick="toggleTrialDetails(this)">
+            <!-- <div class="trial-card" onclick="toggleTrialDetails(this)">
                 <img src="洗髮精/hair1.png" alt="商品1">
                 <div class="trial-card-details">
                     <div class="brand">自然之選</div>
@@ -471,6 +475,25 @@
                         <div class="actions">
                             <button>再次申請</button>
                             <button>重新開團</button>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+
+            <div class="trial-card" onclick="toggleTrialDetails(this)">
+                <img src="洗面乳/face1.png" alt="商品2">
+                <div class="trial-card-details">
+                    <div class="brand">清新日常</div>
+                    <div class="product">茶樹控油潔面乳</div>
+                    <div class="expand">點擊展開回饋紀錄與操作</div>
+                    <div class="trial-details">
+                        <div class="feedback-container">
+                            <div id="overall_rating">評分：⭐⭐⭐</div>
+                            <div id="open_feedback">心得：控油力好但香氣稍重</div>
+                        </div>
+                        <div class="actions">
+                            <button class="feedback-btn" onclick="handleFeedbackClick(event)">填寫評價</button>
+                            <button onclick="console.log('點擊購買完整罐'); location.href='TyrMePackBuy.html'">購買完整罐</button>
                         </div>
                     </div>
                 </div>
@@ -584,49 +607,80 @@
         </div>
     </footer>
     <script>
-  // 登入狀態檢查
-  const userName = localStorage.getItem("userName");
-  const userEmail = localStorage.getItem("userEmail");
+        // 登入狀態檢查
+        const userName = localStorage.getItem("userName");
+        const userEmail = localStorage.getItem("userEmail");
 
-  if (!userName || !userEmail) {
-    alert("請先登入帳號");
-    window.location.href = "TryMePackLogin.html";
-  } else {
-    // ⭐️ 將登入資訊顯示在畫面上
-    document.querySelector(".name").textContent = userName;
-    document.querySelector(".email").textContent = userEmail;
-  }
+        if (!userName || !userEmail) {
+            alert("請先登入帳號");
+            window.location.href = "TryMePackLogin.html";
+        } else {
+            // ⭐️ 將登入資訊顯示在畫面上
+            document.querySelector(".name").textContent = userName;
+            document.querySelector(".email").textContent = userEmail;
+        }
 
-  document.querySelector('.avatar-edit').onclick = function () {
-    document.getElementById('avatarUpload').click();
-  };
-  document.getElementById('avatarUpload').onchange = function (e) {
-    if (e.target.files && e.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function (evt) {
-        document.getElementById('avatarImg').src = evt.target.result;
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
+        document.querySelector('.avatar-edit').onclick = function () {
+            document.getElementById('avatarUpload').click();
+        };
+        document.getElementById('avatarUpload').onchange = function (e) {
+            if (e.target.files && e.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (evt) {
+                    document.getElementById('avatarImg').src = evt.target.result;
+                };
+                reader.readAsDataURL(e.target.files[0]);
+            }
+        };
 
-  window.toggleTrialDetails = function (card) {
-    const details = card.querySelector('.trial-details');
-    if (details.style.display === 'none') {
-      details.style.display = 'block';
-    } else {
-      details.style.display = 'none';
-    }
-  };
+        window.toggleTrialDetails = function (card) {
+            const details = card.querySelector('.trial-details');
+            if (details.style.display === 'none') {
+                details.style.display = 'block';
+            } else {
+                details.style.display = 'none';
+            }
+        };
 
-  document.querySelectorAll("button").forEach(btn => {
-    btn.addEventListener("mouseover", () => {
-      btn.style.background = "#e05555";
-    });
-    btn.addEventListener("mouseout", () => {
-      btn.style.background = "#f66";
-    });
-  });
-</script>
+        function handleFeedbackClick(event) {
+            event.stopPropagation();
+            window.location.href = 'TyrMePackFeedBack.html';
+        }
+
+        document.querySelectorAll("button").forEach(btn => {
+            btn.addEventListener("mouseover", () => {
+                btn.style.background = "#e05555";
+            });
+            btn.addEventListener("mouseout", () => {
+                btn.style.background = "#f66";
+            });
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('feedbackFinished') === 'true') {
+                const card = document.querySelector('.trial-card');
+                const feedbackBtn = card.querySelector('.feedback-btn');
+                const feedback = card.querySelector('.feedback-container');
+
+                if (feedbackBtn) feedbackBtn.style.display = 'none';
+                if (feedback) feedback.style.display = 'block';
+
+                const rating = localStorage.getItem('feedbackRating') || '';
+                const comment = localStorage.getItem('feedbackComment') || '';
+
+                const ratingDiv = document.getElementById('overall_rating');
+                const commentDiv = document.getElementById('open_feedback');
+
+                if (ratingDiv) ratingDiv.textContent = `評分：${'⭐'.repeat(parseInt(rating))}`;
+                if (commentDiv) commentDiv.textContent = `心得：${comment}`;
+
+                console.log('偵測到已填寫過評價，已更新顯示狀態');
+                localStorage.removeItem('feedbackFinished');
+                localStorage.removeItem('feedbackRating');
+                localStorage.removeItem('feedbackComment');
+            }
+        });
+    </script>
 </body>
+
 </html>
