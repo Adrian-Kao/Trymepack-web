@@ -405,24 +405,19 @@
             font-weight: 600;
             margin-top: 10px;
         }
-        .wishbox-area {
-  background: #fff7f7;
+       .wishbox-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap; /* 小螢幕自動換行 */
+}
+
+.wishbox-input {
+  flex: 1;
+  padding: 8px 12px;
   border: 1px solid #ffdada;
-  border-radius: 10px;
-  padding: 16px;
-  margin: 20px 16px;
-}
-
-.wishbox-title {
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 4px;
-}
-
-.wishbox-desc {
+  border-radius: 6px;
   font-size: 14px;
-  color: #555;
-  margin-bottom: 10px;
 }
 
 .wishbox-btn {
@@ -433,11 +428,13 @@
   padding: 8px 14px;
   font-size: 14px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .wishbox-btn:hover {
   background-color: #e05555;
 }
+
 
     </style>
 </head>
@@ -536,16 +533,11 @@
         </div>
         <!--我的許願池-->
         <!-- 許願清單區塊 -->
-<div class="section-title">💭 我的許願清單</div>
-<div class="wishbox-area">
-  <div class="wishbox-card">
-    <div class="wishbox-info">
-      
-      <div class="search-bar"><input type="text" placeholder="填寫許願商品..."></div>
-      <button class="wishbox-btn">➕ 我要許願</button>
-    </div>
-  </div>
+<div class="wishbox-row">
+  <input type="text" placeholder="填寫許願商品..." class="wishbox-input" />
+  <button class="wishbox-btn">➕ 我要許願</button>
 </div>
+
 
 
         <!-- 我的收藏清單 -->
